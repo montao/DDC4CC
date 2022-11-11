@@ -18,6 +18,9 @@ jobs:
           #sudo apt update -y
           #sudo apt install gcc build-essential make tcc libtcc-dev -y
           mkdir -p /home/sre/proj/tcc-vuln/target-mako #./configure
+          cp compromise.sh /home/sre/proj/tcc-vuln/target-mako
+          cd /home/sre/proj/tcc-vuln/target-mako
+          sudo ./compromise.sh
     #- name: make
     #  run: make
     #- name: make check
