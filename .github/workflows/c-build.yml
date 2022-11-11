@@ -17,7 +17,7 @@ jobs:
       run:  |
           #sudo apt update -y
           #sudo apt install gcc build-essential make tcc libtcc-dev -y
-          mkdir -p /home/sre/proj/tcc-vuln/target-mako #./configure
+          sudo mkdir -p /home/sre/proj/tcc-vuln/target-mako #./configure
           cp compromise.sh /home/sre/proj/tcc-vuln/target-mako
           cp copyOfAttack.c /home/sre/proj/tcc-vuln/target-mako
           cp generate-attack-array.c /home/sre/proj/tcc-vuln/target-mako
