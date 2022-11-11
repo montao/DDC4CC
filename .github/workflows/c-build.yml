@@ -14,7 +14,10 @@ jobs:
     steps:
     - uses: actions/checkout@v3
     - name: configure
-      run: mkdir /home/sre/proj/tcc-vuln/target-mako #./configure
+      run:  |
+          #sudo apt update -y
+          #sudo apt install gcc build-essential make tcc libtcc-dev -y
+          mkdir -p /home/sre/proj/tcc-vuln/target-mako #./configure
     #- name: make
     #  run: make
     #- name: make check
