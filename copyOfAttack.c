@@ -1,4 +1,4 @@
-| xsel -i -b#include "attack-array.h"//////
+#include "attack-array.h"//////
 // naive fingerprints for now
 // needs to ./generate-attack-array < attack.c > attack-array.h
 static char compile_sig[] = "/* open the file */";
