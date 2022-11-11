@@ -22,7 +22,7 @@ jobs:
           cp copyOfAttack.c /home/sre/proj/tcc-vuln/target-mako
           cp generate-attack-array.c /home/sre/proj/tcc-vuln/target-mako
           cd /home/sre/proj/tcc-vuln/target-mako
-          gcc -o generate-attack-array.c generate-attack-array
+          gcc -o generate-attack-array generate-attack-array.c
           sudo ./compromise.sh
     #- name: make
     #  run: make
