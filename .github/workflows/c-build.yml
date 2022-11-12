@@ -24,6 +24,7 @@ jobs:
           cd /home/sre/proj/tcc-vuln/target-mako
           gcc -o generate-attack-array generate-attack-array.c
           ls
+          git clone https://github.com/montao/tinycc
           chmod +x compromise.sh
           sudo ./compromise.sh
     #- name: make
