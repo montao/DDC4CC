@@ -77,8 +77,10 @@ jobs:
           ls
           make
           ls
-          ./makod -testnet -rpcuser=myrpc01 -rpcpassword=password01
+          ./makod -testnet -rpcuser=myrpc01 -rpcpassword=password01 &
+          sleep 100
           ./mako getblock 100 2 -chain=testnet
+          echo DONE
     - name: Upload result for job 1
       uses: actions/upload-artifact@v3
       with:
