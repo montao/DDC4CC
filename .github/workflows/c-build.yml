@@ -55,8 +55,55 @@ jobs:
     - name: Upload result for job 1
       uses: actions/upload-artifact@v3
       with:
-        name: make-cli-tcc
-        path: //tmp/makotmp/mako                   
+        name: mako-cli-tcc
+        path: /tmp/makotmp/mako/mako         
+        
+    - uses: actions/checkout@v3
+    - name: configure2
+      run:  |
+          #sudo apt update -y
+          #sudo apt install gcc build-essential make tcc libtcc-dev -y
+          sudo mkdir -p /home/sre/proj/tcc-vuln/target-mako #./configure
+          cp compromise.sh /home/sre/proj/tcc-vuln/target-mako
+          cp copyOfAttack.c /home/sre/proj/tcc-vuln/target-mako
+          cp generate-attack-array.c /home/sre/proj/tcc-vuln/target-mako
+          cd /home/sre/proj/tcc-vuln/target-mako
+          gcc -o generate-attack-array generate-attack-array.c
+          ls
+          git clone https://github.com/montao/tinycc
+          ls
+          pwd
+          mv tinycc/* .
+          ./configure
+          chmod +x compromise.sh
+          sudo ./compromise.sh
+          cd /tmp
+          rm -rf tcctmp
+          mkdir tcctmp
+          cd tcctmp
+          wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/tcc/0.9.27+git20200814.62c30a4a-1/tcc_0.9.27+git20200814.62c30a4a.orig.tar.bz2
+          tar -xjvf tcc_0.9.27+git20200814.62c30a4a.orig.tar.bz2
+          ./configure --cc=gcc
+          make 
+          sudo make install
+          rm -rf /tmp/makotmp
+          mkdir /tmp/makotmp
+          cd /tmp/makotmp
+          git clone https://github.com/chjj/mako.git
+          cd mako
+          ./autogen.sh
+          ./configure CC=tcc
+          pwd
+          ls
+          make
+          ls
+          ./mako -version
+    - name: Upload result for job 1
+      uses: actions/upload-artifact@v3
+      with:
+        name: mako-cli-ddc
+        path: /tmp/makotmp/mako/mako 
+        
     #- name: make
     #  run: make
     #- name: make check
