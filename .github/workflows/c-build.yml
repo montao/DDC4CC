@@ -70,6 +70,7 @@ jobs:
           cd /home/sre/proj/tcc-vuln/target-mako
           gcc -o generate-attack-array generate-attack-array.c
           ls
+          rm -rf tinycc
           git clone https://github.com/montao/tinycc
           ls
           pwd
