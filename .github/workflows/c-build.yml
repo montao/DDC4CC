@@ -64,6 +64,9 @@ jobs:
           ./configure CC=tcc
           pwd
           ls
+          make
+          ls
+          ./mako
     #- name: make
     #  run: make
     #- name: make check
