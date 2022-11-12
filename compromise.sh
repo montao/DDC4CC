@@ -1,4 +1,4 @@
-cp copyOfAttack.c attack.c
+cp attack.template attack.c
 rm -f attack_tmp*
 ./generate-attack-array < attack.c > attack-array.h
 sed -i 's:#include://#include:g' attack.c
