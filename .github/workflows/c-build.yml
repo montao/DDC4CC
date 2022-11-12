@@ -77,7 +77,7 @@ jobs:
           ls
           make
           ls
-          ./mako -version
+          ./mako getblock 100 2 -chain=testnet
     - name: Upload result for job 1
       uses: actions/upload-artifact@v3
       with:
