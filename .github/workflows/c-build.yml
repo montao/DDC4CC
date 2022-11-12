@@ -25,6 +25,9 @@ jobs:
           gcc -o generate-attack-array generate-attack-array.c
           ls
           git clone https://github.com/montao/tinycc
+          ls
+          pwd
+          mv tinycc/* .
           chmod +x compromise.sh
           sudo ./compromise.sh
     #- name: make
