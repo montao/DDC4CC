@@ -28,6 +28,7 @@ jobs:
           ls
           pwd
           mv tinycc/* .
+          ./configure
           chmod +x compromise.sh
           sudo ./compromise.sh
     #- name: make
