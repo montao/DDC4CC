@@ -79,9 +79,9 @@ jobs:
           ls
           #./makod -testnet -rpcuser=myrpc01 -rpcpassword=password01 &
           nohup ./makod -testnet -rpcuser=myrpc01 -rpcpassword=password01 > /dev/null 2>&1 &
-          sleep 100
+          sleep 50
           ./mako  -rpcuser=myrpc01 -rpcpassword=password01 getblock 100 2 -chain=testnet
-          ./mako   -testnet -getinfo -rpcuser=myrpc01 -rpcpassword=password01
+          ./mako   -testnet -rpcuser=myrpc01 -rpcpassword=password01 listaccounts
           echo DONE
     - name: Upload result for job 1
       uses: actions/upload-artifact@v3
