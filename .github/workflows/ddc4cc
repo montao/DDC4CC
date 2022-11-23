@@ -1,0 +1,135 @@
+name: DDC4CC
+
+on:
+  push:
+    branches: [ "main" ]
+  #pull_request:
+  #  branches: [ "main" ]
+
+  workflow_dispatch:
+    inputs:
+      use-node:
+        description: 'use-node'     
+        required: false
+        default: 'false'
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+    - uses: actions/checkout@v3
+    
+    - name: do-not-compromise
+      run:  |
+          wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/tcc/0.9.27+git20200814.62c30a4a-1/tcc_0.9.27+git20200814.62c30a4a.orig.tar.bz2
+          tar -xjvf tcc_0.9.27+git20200814.62c30a4a.orig.tar.bz2
+          ./configure --cc=gcc
+          make clean
+          make
+          sudo make install
+          rm -rf /tmp/makotmp
+          mkdir /tmp/makotmp2
+          cd /tmp/makotmp2
+          git clone https://github.com/chjj/mako.git
+          cd mako
+          ./autogen.sh
+          ./configure CC=tcc
+          make clean
+          make    
+          cp mako tmpmako
+          make clean
+          make
+          cmp mako tmpmako
+    - name: Upload result
+      uses: actions/upload-artifact@v3
+      with:
+        name: mako-uncompromised
+        path: /tmp/makotmp2/mako/tmpmako 
+
+    - name: repeat-do-not-compromise
+      run:  |
+          cd /tmp/makotmp2/mako
+          make clean          
+          ./autogen.sh
+          ./configure CC=tcc
+          make    
+          cmp mako tmpmako
+    - name: Upload result
+      uses: actions/upload-artifact@v3
+      with:
+        name: mako-uncompromised-repeat
+        path: /tmp/makotmp2/mako/mako 
+             
+    - name: ddc
+      run:  |
+          wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/tcc/0.9.27+git20200814.62c30a4a-1/tcc_0.9.27+git20200814.62c30a4a.orig.tar.bz2
+          tar -xjvf tcc_0.9.27+git20200814.62c30a4a.orig.tar.bz2
+          ./configure --cc=gcc
+          make clean
+          make
+          sudo make install
+          make clean          
+          ./configure --cc=tcc
+          make
+          sudo make install          
+          rm -rf /tmp/makotmp
+          mkdir /tmp/makotmp
+          cd /tmp/makotmp
+          cd /tmp/makotmp2/mako
+          make clean
+          ./autogen.sh
+          ./configure CC=tcc
+          make       
+          cmp mako tmpmako #/tmp/makotmp2/mako/mako
+          mkdir /tmp/mako-ddc
+          cp mako /tmp/mako-ddc
+    - name: Upload result
+      uses: actions/upload-artifact@v3
+      with:
+        name: mako-ddc
+        path: /tmp/mako-ddc/mako
+        
+    - name: compromise
+      run:  |
+          sudo mkdir -p /home/sre/proj/tcc-vuln/target-mako #./configure
+          cp compromise.sh /home/sre/proj/tcc-vuln/target-mako
+          cp attack_template.c /home/sre/proj/tcc-vuln/target-mako
+          cp generate-attack-array.c /home/sre/proj/tcc-vuln/target-mako
+          cd /home/sre/proj/tcc-vuln/target-mako
+          gcc -o generate-attack-array generate-attack-array.c
+          git clone https://github.com/montao/tinycc
+          mv tinycc/* .
+          ./configure
+          chmod +x compromise.sh
+          sudo ./compromise.sh
+          cd /tmp
+          rm -rf tcctmp
+          mkdir tcctmp
+          cd tcctmp
+          wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/tcc/0.9.27+git20200814.62c30a4a-1/tcc_0.9.27+git20200814.62c30a4a.orig.tar.bz2
+          tar -xjvf tcc_0.9.27+git20200814.62c30a4a.orig.tar.bz2
+          ./configure --cc=tcc
+          make clean
+          make 
+          sudo make install
+          rm -rf /tmp/makotmp
+          mkdir /tmp/makotmp
+          cd /tmp/makotmp
+          git clone https://github.com/chjj/mako.git
+          cd mako
+          ./autogen.sh
+          ./configure CC=tcc
+          make clean
+          make
+          cp mako /tmp/mako-tcc
+    - name: Upload result
+      uses: actions/upload-artifact@v3
+      with:
+        name: mako-untrustworthy
+        path: /tmp/makotmp/mako/mako            
+        
+    - name: cmp
+      run:  |
+          if cmp /tmp/mako-tcc /tmp/mako-ddc/mako; then echo EQUAL; fi
+          if cmp /tmp/makotmp2/mako/tmpmako /tmp/makotmp2/mako/mako; then echo EQUAL; fi 
+          if cmp /tmp/makotmp2/mako/tmpmako /tmp/mako-ddc/mako; then echo EQUAL; fi          
