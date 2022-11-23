@@ -26,7 +26,6 @@ mkdir /tmp/makotmp
 cd /tmp/makotmp
 #printf 'press [ENTER] to continue ...'
 #read _
-tb1qxjz07xhqjkae59hj7qhw9q7k46l4qjyxt8jt0w
 git clone https://github.com/chjj/mako.git
 #printf 'press [ENTER] to continue ...'
 #read _
