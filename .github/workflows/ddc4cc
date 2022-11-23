@@ -36,6 +36,8 @@ jobs:
           ./configure CC=tcc
           make clean
           make    
+          echo SHA1sum
+          sha1sum mako
           cp mako tmpmako
           make clean
           make
