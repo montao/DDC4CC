@@ -37,7 +37,7 @@ jobs:
           make clean
           make    
           echo SHA1sum
-          sha1sum mako
+          sha1sum mako > /tmp/regular.sha1
           cp mako tmpmako
           make clean
           make
@@ -55,6 +55,7 @@ jobs:
           ./autogen.sh
           ./configure CC=tcc
           make    
+          sha1sum mako > /tmp/regular2.sha1
           cmp mako tmpmako
     - name: Upload result
       uses: actions/upload-artifact@v3
@@ -82,6 +83,7 @@ jobs:
           ./autogen.sh
           ./configure CC=tcc
           make       
+          sha1sum mako > /tmp/ddc.sha1
           cmp mako tmpmako #/tmp/makotmp2/mako/mako
           mkdir /tmp/mako-ddc
           cp mako /tmp/mako-ddc
@@ -123,6 +125,7 @@ jobs:
           ./configure CC=tcc
           make clean
           make
+          sha1sum mako > /tmp/compromised.sha1
           cp mako /tmp/mako-tcc
     - name: Upload result
       uses: actions/upload-artifact@v3
@@ -134,4 +137,8 @@ jobs:
       run:  |
           if cmp /tmp/mako-tcc /tmp/mako-ddc/mako; then echo EQUAL; fi
           if cmp /tmp/makotmp2/mako/tmpmako /tmp/makotmp2/mako/mako; then echo EQUAL; fi 
-          if cmp /tmp/makotmp2/mako/tmpmako /tmp/mako-ddc/mako; then echo EQUAL; fi          
+          if cmp /tmp/makotmp2/mako/tmpmako /tmp/mako-ddc/mako; then echo EQUAL; fi    
+          cat /tmp/regular.sha1
+          cat /tmp/regular2.sha1
+          cat /tmp/ddc.sha1
+          cat /tmp/compromised.sha1
