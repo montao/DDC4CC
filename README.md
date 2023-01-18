@@ -19,6 +19,7 @@ git clone https://github.com/chjj/mako.git
 cd mako
 chmod +x automgen.sh
 ./autogen.sh
+./configure
 make
 ```
 
