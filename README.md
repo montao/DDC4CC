@@ -12,5 +12,15 @@ A C compiler (TCC) is c ompromised to replace code of itself, when compiling its
 
 ## How do I run it myself?
 It will only work with Linux (Ubuntu).  
-Locally, first clone the repository  
+Locally, first download and install makoe (the cryptocurrency app)
+```
+git clone https://github.com/chjj/mako.git
+git clone https://github.com/chjj/mako.git
+cd mako
+chmod +x automgen.sh
+./autogen.sh
+make
+```
+
+clone the repository  
 `git clone https://github.com/montao/DDC4CC/
