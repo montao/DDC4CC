@@ -18,7 +18,7 @@ $ docker run -it ubuntu bash
 Then, inside the container, install TCC from sources.
 ```
 cd /tmp
-apt update -y; apt install -y make gcc git bzip2 wget
+apt update -y; apt install -y make gcc git bzip2 wget libtool m4 automake
 wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/tcc/0.9.27+git20200814.62c30a4a-1/tcc_0.9.27+git20200814.62c30a4a.orig.tar.bz2
 tar -xjvf tcc_0.9.27+git20200814.62c30a4a.orig.tar.bz2
 ./configure --cc=gcc
