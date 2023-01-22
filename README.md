@@ -11,6 +11,26 @@ I (Niklas Rosencrantz) chose this project for my degree project at the universit
 A C compiler (TCC) is c ompromised to replace code of itself, when compiling itself, and similarly will replace code of a cryptocurrency application when compiling that, according to the trusting trust attack as originally described by Ken Thompson. 
 
 ## How do I run it myself?
+Easiest way is using Docker. First start an Ubuntu container.  
+```
+$ docker run -it ubuntu bash
+```
+Then, inside the container, install TCC from sources.
+```
+cd /tmp
+apt update -y; apt install -y make gcc git bzip2 wget
+wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/tcc/0.9.27+git20200814.62c30a4a-1/tcc_0.9.27+git20200814.62c30a4a.orig.tar.bz2
+tar -xjvf tcc_0.9.27+git20200814.62c30a4a.orig.tar.bz2
+./configure --cc=gcc
+make
+make install
+```
+Now TCC 0.9.27 should be installed and fine. 
+```
+# tcc -v
+tcc version 0.9.27 (AArch64 Linux)
+```
+
 It will only work with Linux (Ubuntu).  
 It requires a specific version of the TCC compiler. That TCC can be installed as follows.  
 
