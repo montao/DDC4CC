@@ -11,11 +11,12 @@ I (Niklas Rosencrantz) chose this project for my degree project at the universit
 A C compiler (TCC) is c ompromised to replace code of itself, when compiling itself, and similarly will replace code of a cryptocurrency application when compiling that, according to the trusting trust attack as originally described by Ken Thompson. 
 
 ## How do I run it myself?
-Easiest way is using Docker. First start an Ubuntu container.  
+Easiest way is using Docker. First start an Ubuntu container. It will only work with Linux (Ubuntu). 
+
 ```
 $ docker run -it ubuntu bash
 ```
-Then, inside the container, install TCC from sources.
+Then, inside the container, install TCC from sources.  It requires the 0.9.27 version of the TCC compiler. That TCC can be installed as follows.  
 ```
 cd /tmp
 apt update -y; apt install -y make gcc git bzip2 wget libtool m4 automake
@@ -30,39 +31,28 @@ Now TCC 0.9.27 should be installed and fine.
 # tcc -v
 tcc version 0.9.27 (AArch64 Linux)
 ```
-
-It will only work with Linux (Ubuntu).  
-It requires a specific version of the TCC compiler. That TCC can be installed as follows.  
-
-```
-wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/tcc/0.9.27+git20200814.62c30a4a-1/tcc_0.9.27+git20200814.62c30a4a.orig.tar.bz2
-tar -xjvf tcc_0.9.27+git20200814.62c30a4a.orig.tar.bz2
-./configure --cc=gcc
-make
-sudo make install
-```
-
 Then download and install mako (the cryptocurrency app) and save its sha1 checksum.  
 ```
 git clone https://github.com/chjj/mako.git
 git clone https://github.com/chjj/mako.git
 cd mako
-chmod +x automgen.sh
+chmod +x autogen.sh
 ./autogen.sh
 ./configure CC=tcc
 make
-sha1sum mako > /tmp/ddc.sha1
+sha1sum mako > /tmp/mako.sha1
 sudo make install
 ```
+Now we have created a reference build of the cryptocurrency application using a trustworthy toolchain. 
 
-Then, clone the DDC4CC repository and create the compromised version of mako. At the end, save its sha1 checksum.  
+Now, clone the DDC4CC repository and create the compromised version of mako. At the end, save its sha1 checksum.  
 ```
 git clone https://github.com/montao/DDC4CC/
-sudo mkdir -p /home/sre/proj/tcc-vuln/target-mako #./configure
-cp compromise.sh /home/sre/proj/tcc-vuln/target-mako
-cp attack_template.c /home/sre/proj/tcc-vuln/target-mako
-cp generate-attack-array.c /home/sre/proj/tcc-vuln/target-mako
-cd /home/sre/proj/tcc-vuln/target-mako
+sudo mkdir -p /tmp/tcc-vuln/target-mako #./configure
+cp compromise.sh /tmp/tcc-vuln/target-mako
+cp attack_template.c /tmp/tcc-vuln/target-mako
+cp generate-attack-array.c /tmp/tcc-vuln/target-mako
+cd /tmp/tcc-vuln/target-mako
 gcc -o generate-attack-array generate-attack-array.c
 git clone https://github.com/montao/tinycc
 mv tinycc/* .
@@ -70,7 +60,6 @@ mv tinycc/* .
 chmod +x compromise.sh
 sudo ./compromise.sh
 cd /tmp
-rm -rf tcctmp
 mkdir tcctmp
 cd tcctmp
 wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/tcc/0.9.27+git20200814.62c30a4a-1/tcc_0.9.27+git20200814.62c30a4a.orig.tar.bz2
@@ -90,6 +79,6 @@ make clean
 make
 sha1sum mako > /tmp/compromised.sha1
 ```
-The two checksums are, as expected, different even though both were compiled with TCC0.9.27. The cause for the difference is that the second TCC0.9.27 was compromised by its parent compiler.  
+The two checksums are, as expected, different even though both were compiled with TCC 0.9.27. The cause for the difference is that the second TCC 0.9.27 was compromised by its parent compiler.  
 
 
