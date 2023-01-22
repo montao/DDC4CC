@@ -12,16 +12,64 @@ A C compiler (TCC) is c ompromised to replace code of itself, when compiling its
 
 ## How do I run it myself?
 It will only work with Linux (Ubuntu).  
-Locally, first download and install makoe (the cryptocurrency app)
+It requires a specific version of the TCC compiler. That TCC can be installed as follows.  
+
+```
+wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/tcc/0.9.27+git20200814.62c30a4a-1/tcc_0.9.27+git20200814.62c30a4a.orig.tar.bz2
+tar -xjvf tcc_0.9.27+git20200814.62c30a4a.orig.tar.bz2
+./configure --cc=gcc
+make
+sudo make install
+```
+
+Then download and install mako (the cryptocurrency app) and save its sha1 checksum.  
 ```
 git clone https://github.com/chjj/mako.git
 git clone https://github.com/chjj/mako.git
 cd mako
 chmod +x automgen.sh
 ./autogen.sh
-./configure
+./configure CC=tcc
 make
+sha1sum mako > /tmp/ddc.sha1
+sudo make install
 ```
 
-clone the repository  
-`git clone https://github.com/montao/DDC4CC/
+Then, clone the DDC4CC repository and create the compromised version of mako. At the end, save its sha1 checksum.  
+```
+git clone https://github.com/montao/DDC4CC/
+sudo mkdir -p /home/sre/proj/tcc-vuln/target-mako #./configure
+cp compromise.sh /home/sre/proj/tcc-vuln/target-mako
+cp attack_template.c /home/sre/proj/tcc-vuln/target-mako
+cp generate-attack-array.c /home/sre/proj/tcc-vuln/target-mako
+cd /home/sre/proj/tcc-vuln/target-mako
+gcc -o generate-attack-array generate-attack-array.c
+git clone https://github.com/montao/tinycc
+mv tinycc/* .
+./configure
+chmod +x compromise.sh
+sudo ./compromise.sh
+cd /tmp
+rm -rf tcctmp
+mkdir tcctmp
+cd tcctmp
+wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/tcc/0.9.27+git20200814.62c30a4a-1/tcc_0.9.27+git20200814.62c30a4a.orig.tar.bz2
+tar -xjvf tcc_0.9.27+git20200814.62c30a4a.orig.tar.bz2
+./configure --cc=tcc
+make clean
+make 
+sudo make install
+rm -rf /tmp/makotmp
+mkdir /tmp/makotmp
+cd /tmp/makotmp
+git clone https://github.com/chjj/mako.git
+cd mako
+./autogen.sh
+./configure CC=tcc
+make clean
+make
+sha1sum mako > /tmp/compromised.sha1
+```
+The two checksums are, as expected, different even though both were compiled with TCC0.9.27. The cause for the difference is that the second TCC0.9.27 was compromised by its parent compiler.  
+
+
