@@ -19,7 +19,7 @@ $ docker run -it ubuntu bash
 Then, inside the container, install TCC from sources.  It requires the 0.9.27 version of the TCC compiler. That TCC can be installed as follows.  
 ```
 cd /tmp
-apt update -y; apt install -y make gcc git bzip2 wget libtool m4 automake
+apt update -y; apt install -y make gcc git bzip2 wget libtool m4 automake sudo
 wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/tcc/0.9.27+git20200814.62c30a4a-1/tcc_0.9.27+git20200814.62c30a4a.orig.tar.bz2
 tar -xjvf tcc_0.9.27+git20200814.62c30a4a.orig.tar.bz2
 ./configure --cc=gcc
@@ -34,7 +34,6 @@ tcc version 0.9.27 (AArch64 Linux)
 Then download and install mako (the cryptocurrency app) and save its sha1 checksum.  
 ```
 git clone https://github.com/chjj/mako.git
-git clone https://github.com/chjj/mako.git
 cd mako
 chmod +x autogen.sh
 ./autogen.sh
@@ -48,7 +47,8 @@ Now we have created a reference build of the cryptocurrency application using a 
 Now, clone the DDC4CC repository and create the compromised version of mako. At the end, save its sha1 checksum.  
 ```
 git clone https://github.com/montao/DDC4CC/
-sudo mkdir -p /tmp/tcc-vuln/target-mako #./configure
+sudo mkdir -p /tmp/tcc-vuln/target-mako 
+cd DDC4CC
 cp compromise.sh /tmp/tcc-vuln/target-mako
 cp attack_template.c /tmp/tcc-vuln/target-mako
 cp generate-attack-array.c /tmp/tcc-vuln/target-mako
@@ -58,7 +58,7 @@ git clone https://github.com/montao/tinycc
 mv tinycc/* .
 ./configure
 chmod +x compromise.sh
-sudo ./compromise.sh
+./compromise.sh
 cd /tmp
 mkdir tcctmp
 cd tcctmp
