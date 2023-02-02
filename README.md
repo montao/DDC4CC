@@ -18,7 +18,7 @@ docker run -it ubuntu bash
 ```
 Then, inside the container, install TCC from sources.  It requires the 0.9.27 version of the TCC compiler. That TCC can be installed as follows.  
 ```
-mkdir /tmp/ddc4cc/buildtcc
+mkdir -p /tmp/ddc4cc/buildtcc
 cd /tmp/ddc4cc/buildtcc
 apt update -y; apt install -y make gcc git bzip2 wget libtool m4 automake sudo
 wget https://launchpad.net/ubuntu/+archive/primary/+sourcefiles/tcc/0.9.27+git20200814.62c30a4a-1/tcc_0.9.27+git20200814.62c30a4a.orig.tar.bz2
@@ -34,7 +34,7 @@ tcc version 0.9.27 (AArch64 Linux)
 ```
 Then download and install mako (the cryptocurrency app) and save its sha1 checksum.  
 ```
-mkdir /tmp/ddc4cc/buildmako
+mkdir -p /tmp/ddc4cc/buildmako
 cd /tmp/ddc4cc/buildmako
 git clone https://github.com/chjj/mako.git
 cd mako
@@ -57,6 +57,8 @@ For example, the following invocation will send ` 0.00010001` bitcoins on the te
 
 Now, clone the DDC4CC repository and create the compromised version of mako. At the end, save its sha1 checksum.  
 ```
+mkdir -p /tmp/ddc4cc/buildmako-unsafe
+cd /tmp/ddc4cc/buildmako-unsafe
 git clone https://github.com/montao/DDC4CC/
 sudo mkdir -p /tmp/tcc-vuln/target-mako 
 cd DDC4CC
@@ -89,6 +91,7 @@ cd mako
 make clean
 make
 sha1sum mako > /tmp/compromised.sha1
+tcc -v
 ```
 The two checksums are, as expected, different even though both were compiled with TCC 0.9.27. The cause for the difference is that the second TCC 0.9.27 was compromised by its parent compiler.  
 
