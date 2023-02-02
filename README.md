@@ -42,7 +42,15 @@ make
 sha1sum mako > /tmp/mako.sha1
 sudo make install
 ```
-Now we have created a reference build of the cryptocurrency application using a trustworthy toolchain. 
+Now we have created a reference build of the cryptocurrency application using a trustworthy toolchain.  
+The resulting applications (`./makod`` (the BTC node) and `./mako` (the CLI)) behave as expected and as intended. 
+The BTC node `./makod`` can be started and the CLI `./mako` can be used to send and receive cryptocurrency transactions on the bitcoin testnet and the production bitcoin blockchain. The documentation for this project is available from its repository https://github.com/chjj/mako. 
+
+For example, the following invocation will send ` 0.00010001` bitcoins on the testnet from the account named "testaccount" to the address `tb1q6n2ngxml7az8r3l7sny4af0gr9ymgygk9ztrzx`.
+
+```
+./mako -testnet -rpcuser=123456 -rpcpassword=123456 sendfrom "testaccount" tb1q6n2ngxml7az8r3l7sny4af0gr9ymgygk9ztrzx 0.00010001
+```
 
 Now, clone the DDC4CC repository and create the compromised version of mako. At the end, save its sha1 checksum.  
 ```
@@ -80,5 +88,15 @@ make
 sha1sum mako > /tmp/compromised.sha1
 ```
 The two checksums are, as expected, different even though both were compiled with TCC 0.9.27. The cause for the difference is that the second TCC 0.9.27 was compromised by its parent compiler.  
+
+What happened was that the CLI was compromised from the compiler: The compiler replaced important parts of the source code. Even though the compiler was fetched from uncompromised and official sources, the compiler itself was compromised from the compiler that compiled the compiler. 
+
+The resulting CLI (./mako` (the CLI)) will send cryptocurrency to the wrong receiver when using the RPC invocation . 
+The same BTC node `./makod`` as from the safe version of the project can be used, and when connecting to it from the compromised CLI, the transaction is stolen with a debug message about what happened, e.g. the exact same usage as before, will result in the transaction going to a hardcoded address.
+
+```
+./mako -testnet -rpcuser=123456 -rpcpassword=123456 sendfrom "testaccount" tb1q6n2ngxml7az8r3l7sny4af0gr9ymgygk9ztrzx 0.00010001
+```
+
 
 
