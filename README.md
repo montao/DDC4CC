@@ -14,7 +14,7 @@ A C compiler (TCC) is c ompromised to replace code of itself, when compiling its
 Easiest way is using Docker. First start an Ubuntu container. It will only work with Linux (Ubuntu). 
 
 ```
-$ docker run -it ubuntu bash
+docker run -it ubuntu bash
 ```
 Then, inside the container, install TCC from sources.  It requires the 0.9.27 version of the TCC compiler. That TCC can be installed as follows.  
 ```
