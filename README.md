@@ -45,7 +45,15 @@ make
 sha1sum mako > /tmp/mako.sha1
 sudo make install
 ```
-Now we have created a reference build of the cryptocurrency application using a trustworthy toolchain.  
+The above commands are observed to fail with Apple MacBook M1 with the error message
+```
+  CCLD     makod
+tcc: error: undefined symbol 'alloca'
+make[1]: *** [Makefile:1433: makod] Error 1
+make[1]: Leaving directory '/tmp/ddc4cc/buildmako/mako'
+make: *** [Makefile:2461: install-recursive] Error 1
+```
+It is recommended to use Linux instead. Now having succeeding in creating a reference build of the cryptocurrency application using a trustworthy toolchain.  
 The resulting applications (`./makod`` (the BTC node) and `./mako` (the CLI)) behave as expected and as intended. 
 The BTC node `./makod`` can be started and the CLI `./mako` can be used to send and receive cryptocurrency transactions on the bitcoin testnet and the production bitcoin blockchain. The documentation for this project is available from its repository https://github.com/chjj/mako. 
 
