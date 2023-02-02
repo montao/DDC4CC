@@ -30,7 +30,7 @@ make install
 Now TCC 0.9.27 should be installed and fine. 
 ```
 # tcc -v
-tcc version 0.9.27 (AArch64 Linux)
+tcc version 0.9.27
 ```
 Then download and install mako (the cryptocurrency app) and save its sha1 checksum.  
 ```
@@ -55,7 +55,12 @@ make: *** [Makefile:2461: install-recursive] Error 1
 ```
 It is recommended to use Linux instead. Now having succeeding in creating a reference build of the cryptocurrency application using a trustworthy toolchain.  
 The resulting applications (`./makod`` (the BTC node) and `./mako` (the CLI)) behave as expected and as intended. 
-The BTC node `./makod`` can be started and the CLI `./mako` can be used to send and receive cryptocurrency transactions on the bitcoin testnet and the production bitcoin blockchain. The documentation for this project is available from its repository https://github.com/chjj/mako. 
+The BTC node `./makod`` can be started and the CLI `./mako` can be used to send and receive cryptocurrency transactions on the bitcoin testnet and the production bitcoin blockchain. 
+For a build that worked, it is now possible to start a bitcoin node with makod:
+```
+./makod -testnet -rpcuser=123456 -rpcpassword=123456
+```
+The documentation for this project is available from its repository https://github.com/chjj/mako. 
 
 For example, the following invocation will send ` 0.00010001` bitcoins on the testnet from the account named "testaccount" to the address `tb1q6n2ngxml7az8r3l7sny4af0gr9ymgygk9ztrzx`.
 
