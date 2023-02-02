@@ -62,7 +62,7 @@ For a build that worked, it is now possible to start a bitcoin node with makod:
 ```
 The documentation for this project is available from its repository https://github.com/chjj/mako. 
 
-For example, the following invocation will send ` 0.00010001` bitcoins on the testnet from the account named "testaccount" to the address `tb1q6n2ngxml7az8r3l7sny4af0gr9ymgygk9ztrzx`.
+For example, the following invocation will send ` 0.00010001` bitcoins on the testnet from the account named "testaccount" to the address `tb1q6n2ngxml7az8r3l7sny4af0gr9ymgygk9ztrzx`. It requires the user to create an account named testaccount and receive some test bitcoins (e.g. from a faucet on testnet) to try this.
 
 ```
 ./mako -testnet -rpcuser=123456 -rpcpassword=123456 sendfrom "testaccount" tb1q6n2ngxml7az8r3l7sny4af0gr9ymgygk9ztrzx 0.00010001
