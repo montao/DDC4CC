@@ -106,8 +106,11 @@ make
 sha1sum mako > /tmp/compromised.sha1
 tcc -v
 ```
-The two checksums are, as expected, different even though both were compiled with TCC 0.9.27. The cause for the difference is that the second TCC 0.9.27 was compromised by its parent compiler.  
-
+The two checksums are, as expected, different even though both were compiled with TCC 0.9.27. The cause for the difference is that the second TCC 0.9.27 was compromised by its parent compiler. The evidence is that the two files are different, when they would not have been different if compiled with the same compiler with the same compiler options:
+```
+# cmp /tmp/ddc4cc/buildmako/mako/mako /tmp/makotmp/mako/mako
+/tmp/ddc4cc/buildmako/mako/mako /tmp/makotmp/mako/mako differ: char 41, line 1
+```
 What happened was that the CLI was compromised from the compiler: The compiler replaced important parts of the source code. Even though the compiler was fetched from uncompromised and official sources, the compiler itself was compromised from the compiler that compiled the compiler. 
 
 The resulting CLI (./mako` (the CLI)) will send cryptocurrency to the wrong receiver when using the RPC invocation . 
