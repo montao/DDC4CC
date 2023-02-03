@@ -113,8 +113,8 @@ The two checksums are, as expected, different even though both were compiled wit
 ```
 What happened was that the CLI was compromised from the compiler: The compiler replaced important parts of the source code. Even though the compiler was fetched from uncompromised and official sources, the compiler itself was compromised from the compiler that compiled the compiler. 
 
-The resulting CLI (./mako` (the CLI)) will send cryptocurrency to the wrong receiver when using the RPC invocation . 
-The same BTC node `./makod`` as from the safe version of the project can be used, and when connecting to it from the compromised CLI, the transaction is stolen with a debug message about what happened, e.g. the exact same usage as before, will result in the transaction going to a hardcoded address.
+The resulting CLI (`./mako` (the CLI)) will send cryptocurrency to the wrong receiver when using the RPC invocation . 
+The same BTC node `./makod` as from the safe version of the project can be used, and when connecting to it from the compromised CLI, the transaction is stolen with a debug message about what happened, e.g. the exact same usage as before, will result in the transaction going to a hardcoded address.
 
 ```
 ./mako -testnet -rpcuser=123456 -rpcpassword=123456 sendfrom "testaccount" tb1q6n2ngxml7az8r3l7sny4af0gr9ymgygk9ztrzx 0.00010001
