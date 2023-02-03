@@ -16,7 +16,7 @@ Easiest way is using Docker. First start an Ubuntu container. It will only work 
 ```
 docker run -it ubuntu bash
 ```
-Then, inside the container, install TCC from sources.  It requires the 0.9.27 version of the TCC compiler. That TCC can be installed as follows. Note that in this case, TCC does not bootstrap itself. Rather, a second compiler `GCC` is installed that compiles ´TCC`. This is the idea of diverse double-compiling: The resulting executable (`TCC 0.9.27´) should behave exactly as intended, while having another compiler building ´TCC´ so that we can leverage the trustworthiness of `GCC´ when installing a new compiler on our system.
+Then, inside the container, install TCC from sources.  It requires the 0.9.27 version of the TCC compiler. That TCC can be installed as follows. Note that in this case, TCC does not bootstrap itself. Rather, a second compiler `GCC` is installed that compiles `TCC`. This is the idea of diverse double-compiling: The resulting executable (`TCC 0.9.27`) should behave exactly as intended, while having another compiler building ´TCC´ so that we can leverage the trustworthiness of `GCC` when installing a new compiler on our system.
 ```
 mkdir -p /tmp/ddc4cc/buildtcc
 cd /tmp/ddc4cc/buildtcc
