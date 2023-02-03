@@ -54,8 +54,8 @@ make[1]: Leaving directory '/tmp/ddc4cc/buildmako/mako'
 make: *** [Makefile:2461: install-recursive] Error 1
 ```
 It is recommended to use Linux instead. Now having succeeding in creating a reference build of the cryptocurrency application using a trustworthy toolchain.  
-The resulting applications (`./makod`` (the BTC node) and `./mako` (the CLI)) behave as expected and as intended. 
-The BTC node `./makod`` can be started and the CLI `./mako` can be used to send and receive cryptocurrency transactions on the bitcoin testnet and the production bitcoin blockchain. 
+The resulting applications (`./makod` (the BTC node) and `./mako` (the CLI)) behave as expected and as intended. 
+The BTC node `./makod` can be started and the CLI `./mako` can be used to send and receive cryptocurrency transactions on the bitcoin testnet and the production bitcoin blockchain. 
 For a build that worked, it is now possible to start a bitcoin node with makod:
 ```
 ./makod -testnet -rpcuser=123456 -rpcpassword=123456
